@@ -18,7 +18,6 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         GameX0 gameX0 = new GameX0(3);
-        gameX0.setField(getString("Enter cells: "));
         print(gameX0.toString());
 
         int err = -1;
@@ -35,9 +34,10 @@ public class Main {
                         gameX0.statXO(); // Сбор статистики по заполненным клеткам
                         checkGameStr = gameX0.checkGame();
                         println(gameX0.toString());
+                        break;
                     }
-                    case 1: println("Coordinates should be from 1 to 3!");
-                    case 2: println("This cell is occupied! Choose another one!");
+                    case 1: println("Coordinates should be from 1 to 3!"); break;
+                    case 2: println("This cell is occupied! Choose another one!"); break;
                 }
             } catch (Exception e) {
                 println("You should enter numbers!");

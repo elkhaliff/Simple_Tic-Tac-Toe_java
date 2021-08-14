@@ -24,6 +24,11 @@ public class GameX0 {
          * Инициализация массива рабочей области крестиков-ноликов
          */
         fieldMap = new String[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                fieldMap[i][j] = " ";
+            }
+        }
     }
 
     /**
@@ -75,8 +80,8 @@ public class GameX0 {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 switch (fieldMap[i][j]) {
-                    case "X": cntX++;
-                    case "O": cntO++;
+                    case "X": cntX++; break;
+                    case "O": cntO++; break;
                 }
             }
         }
@@ -88,16 +93,12 @@ public class GameX0 {
     public String checkGame() {
         boolean isWinX = false; // X wins
         boolean isWin0 = false; // O wins
-        boolean isImposs = false; // Impossible
         String winX = "";
         String winO = "";
         for (int i = 0; i < cols; i++) {
             winX += "X";
             winO += "O";
         }
-
-        isImposs = Math.abs(cntX - cntO) >=2;
-        if (isImposs) return "Impossible";
 
         for (int r=0; r < rows; r++) {
             isWinX = getRow(r).equals(winX) || isWinX;
@@ -114,13 +115,10 @@ public class GameX0 {
         isWinX = getLeftDiagonal().equals(winX) || isWinX;
         isWin0 = getLeftDiagonal().equals(winO) || isWin0;
 
-        isImposs = (isWin0 && isWinX) || isImposs;
-
-        if (isImposs) return "Impossible";
         if (isWinX) return "X wins";
         if (isWin0) return "O wins";
         if (!isEmptyCell()) return "Draw";
-        return "Game not finished";
+        return "";
     }
 
     /**
@@ -172,7 +170,7 @@ public class GameX0 {
      * Проверка на незаполненность
      */
     public boolean isEmpty(int row, int col) {
-        return (fieldMap[row][col].equals("_"));
+        return (fieldMap[row][col].equals(" "));
     }
 
     /**
@@ -180,22 +178,6 @@ public class GameX0 {
      */
     private boolean isEmptyCell() {
         return (rows * cols - (cntX + cntO)) > 0;
-    }
-
-    /**
-     * Установка ячеек ходов
-     */
-    public void setField(String inputStr) {
-        int c = 0;
-        String step;
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                step = String.valueOf(inputStr.toCharArray()[c++]);
-                if (step.equals("X")) cntX++;
-                if (step.equals("O")) cntO++;
-                fieldMap[i][j] = step;
-            }
-        }
     }
 
     /**
